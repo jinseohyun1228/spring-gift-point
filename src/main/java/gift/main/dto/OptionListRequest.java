@@ -20,11 +20,15 @@ public record OptionListRequest(@Size(min = 1)
 
     public OptionListRequest {
 
-        Set<OptionRequest> uniqueOptions = new HashSet<>();
-        for (OptionRequest optionRequest : options) {
-            if (!uniqueOptions.add(optionRequest)) {
-                throw new CustomException(ErrorCode.DUPLICATE_OPTION);
-            }
+        //스트림 API 에서 특정 조선을 만족하는 지 검사할 수 있음
+        // allMatch() : 모든 요소들이 참일때만 참
+        // anyMatch() : 하나의 요소라도 참이면 참
+        // noneMatch() : 모든 요소가 거짓일 때 참
+
+        Set<OptionRequest> optionSet  = new HashSet<>();
+        boolean hasDuplicates = options.stream().anyMatch(optionRequest -> !optionSet.add(optionRequest));
+        if (hasDuplicates) {
+            throw new CustomException(ErrorCode.DUPLICATE_OPTION);
         }
     }
 
