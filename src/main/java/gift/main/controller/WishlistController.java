@@ -28,7 +28,7 @@ public class WishlistController {
     }
 
     //새로운 위시 추가
-    @PostMapping()
+    @PostMapping
     public ResponseEntity<?> addWishlistProduct(@RequestBody ProductId productId, @SessionUser UserVo sessionUser) {
         wishProductService.addWishlistProduct(productId.productId(), sessionUser);
         return ResponseEntity.ok("successfully added the item to your wishlist");

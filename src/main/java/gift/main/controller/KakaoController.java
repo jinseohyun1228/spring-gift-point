@@ -32,7 +32,7 @@ public class KakaoController {
     }
 
     //0. 카카오 로그인 화면 보여주기
-    @GetMapping()
+    @GetMapping
     public void requestKakaoLoginScreen(HttpServletResponse response) throws IOException {
         String url = kakaoProperties.codeRequestUri() +
                 "?client_id=" + kakaoProperties.clientId() +
